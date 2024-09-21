@@ -13,3 +13,17 @@ const userSchema = new Schema({
 });
 
 module.exports = mongoose.model('User', userSchema);
+
+
+//Event model
+const eventSchema = new Schema({
+  title: { type: String, required: true },
+  description: { type: String },
+  category: { type: String, required: true },
+  location: { type: String, required: true },
+  date: { type: Date, required: true },
+  host: { type: mongoose.Schema.Types.ObjectId, ref: 'Host' },
+  attendees: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+});
+
+module.exports = mongoose.model('Event', eventSchema);
