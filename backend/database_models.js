@@ -27,3 +27,15 @@ const eventSchema = new Schema({
 });
 
 module.exports = mongoose.model('Event', eventSchema);
+
+
+
+//Host model
+const hostSchema = new Schema({
+  name: { type: String, required: true },
+  description: { type: String },
+  location: { type: String, required: true },
+  events: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Event' }]
+});
+
+module.exports = mongoose.model('Host', hostSchema);
