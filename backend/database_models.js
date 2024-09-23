@@ -1,5 +1,4 @@
 //user model
-
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -13,6 +12,7 @@ const userSchema = new Schema({
 });
 
 module.exports = mongoose.model('User', userSchema);
+
 
 
 //Event model
@@ -39,3 +39,16 @@ const hostSchema = new Schema({
 });
 
 module.exports = mongoose.model('Host', hostSchema);
+
+
+
+//Create User
+app.post('/api/users', async (req, res) => {
+  try {
+    const newUser = new User(req.body);
+    await newUser.save();
+    res.status(201).json(newUser);
+  } catch (error) {
+    res.status(400).json({ error: 'User creation failed' });
+  }
+});
