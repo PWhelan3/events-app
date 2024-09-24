@@ -52,3 +52,16 @@ app.post('/api/users', async (req, res) => {
     res.status(400).json({ error: 'User creation failed' });
   }
 });
+
+
+
+//Create event
+app.post('/api/events', async (req, res) => {
+  try {
+    const newEvent = new Event(req.body);
+    await newEvent.save();
+    res.status(201).json(newEvent);
+  } catch (error) {
+    res.status(400).json({ error: 'Event creation failed' });
+  }
+});
