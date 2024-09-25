@@ -65,3 +65,16 @@ app.post('/api/events', async (req, res) => {
     res.status(400).json({ error: 'Event creation failed' });
   }
 });
+
+
+
+//Fetch Events
+app.get('/api/events', async (req, res) => {
+  const { location, category } = req.query;
+  try {
+    const events = await Event.find({ location, category });
+    res.status(200).json(events);
+  } catch (error) {
+    res.status(400).json({ error: 'Could not fetch events' });
+  }
+});
