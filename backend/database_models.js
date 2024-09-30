@@ -78,3 +78,23 @@ app.get('/api/events', async (req, res) => {
     res.status(400).json({ error: 'Could not fetch events' });
   }
 });
+
+
+
+
+// models/Meetup.js
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const meetupSchema = new Schema({
+  title: { type: String, required: true },
+  description: { type: String },
+  location: { type: String, required: true },
+  type: { type: String, enum: ['spontaneous', 'recurring'], required: true },
+  date: { type: Date, required: true },
+  recurringPattern: { type: String, enum: ['daily', 'weekly', 'monthly'], default: null }, // For recurring events
+  creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  attendees: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+}, { timestamps: true });
+
+module.exports = mongoose.model('Meetup', meetupSchema);
