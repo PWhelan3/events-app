@@ -26,3 +26,16 @@ router.post('/create', async (req, res) => {
 });
 
 module.exports = router;
+
+// Fetch meetups near a given location
+router.get('/nearby', async (req, res) => {
+  const { location } = req.query;
+  
+  // You could use a more sophisticated approach with geolocation for accuracy
+  try {
+    const nearbyMeetups = await Meetup.find({ location: new RegExp(location, 'i') });
+    res.status(200).json(nearbyMeetups);
+  } catch (error) {
+    res.status(400).json({ error: 'Failed to fetch nearby meetups' });
+  }
+});
